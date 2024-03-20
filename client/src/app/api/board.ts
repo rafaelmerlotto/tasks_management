@@ -37,8 +37,8 @@ export class BoardService {
        return null
     }
 
-    async updateBoard(title: string): Promise<BoardModel[] | null>{
-        const res = await fetch(`${this.url}/update/${this.iBoardId}`, {
+    async updateBoard(title: string, id: string): Promise<BoardModel[] | null>{
+        const res = await fetch(`${this.url}/update/${id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json',

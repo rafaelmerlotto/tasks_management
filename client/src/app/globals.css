@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-  background-color: #49260a;
+  background-color: #837d7d;
 height: auto;
 }
 
@@ -31,4 +31,19 @@ height: auto;
 
 ::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+
+
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #837d7d, -20px 0 #0002;background: #837d7d }
+    33% {box-shadow: 20px 0 #837d7d, -20px 0 #0002;background: #0002}
+    66% {box-shadow: 20px 0 #0002,-20px 0 #837d7d; background: #0002}
+    100%{box-shadow: 20px 0 #0002,-20px 0 #837d7d; background: #837d7d }
 }

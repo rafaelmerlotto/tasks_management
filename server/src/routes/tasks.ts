@@ -8,6 +8,17 @@ configDotenv();
 const tasks: Router = express.Router();
 
 
+tasks.get("/", async (req: Request, res: Response) => {
+    const task: Tasks[] | null = await prisma.tasks.findMany()
+    if (!task) {
+        return res.status(404).send({ msg: "Cannot found tasks", valid: false });
+    }
+    if (task.length === 0) {
+        return res.status(403).send({ msg: "There are no tasks", valid: false });
+    }
+    res.status(200).send({ task: task, valid: true });
+})
+
 tasks.post("/create/:boardId", async (req: Request, res: Response) => {
     const { text, difficult, start, finish } = req.body;
     const { boardId } = req.params
@@ -25,7 +36,8 @@ tasks.post("/create/:boardId", async (req: Request, res: Response) => {
             difficult: difficult,
             start: start,
             finish: finish
-        }
+        },
+        
     })
     if (!task) {
         return res.status(400).send({ msg: "The task cannot be created", valid: false });
@@ -48,6 +60,21 @@ tasks.put("/update/:id", async (req: Request, res: Response) => {
     })
     if (!task) {
         return res.status(400).send({ msg: "The task cannot be modified", valid: false });
+    }
+    res.status(201).send({ task: task, valid: true });
+})
+
+
+tasks.delete("/delete/:id", async (req: Request, res: Response) => {
+    const { id} = req.params
+
+    const task: Tasks | null = await prisma.tasks.delete({
+        where:{
+            id: id
+        }
+    })
+    if (!task) {
+        return res.status(400).send({ msg: "The task cannot be deleted", valid: false });
     }
     res.status(201).send({ task: task, valid: true });
 })

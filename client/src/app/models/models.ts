@@ -1,9 +1,12 @@
 
+
 export interface BoardModel {
     id: string
     title: string
     createdAt: Date
     tasks: [],
+    handleClick: () => void
+    handleDelete: (id: string) => void
 }
 
 
@@ -12,7 +15,9 @@ export const dataBoard: BoardModel[] = [
         id: "65f188909766a793622ada26",
         title: "Tasks for today",
         createdAt: new Date(),
-        tasks: []
+        tasks: [],
+        handleClick() { },
+        handleDelete() { },
     }
 ]
 
